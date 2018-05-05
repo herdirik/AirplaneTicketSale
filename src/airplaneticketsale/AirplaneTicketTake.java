@@ -16,13 +16,13 @@ import javax.swing.JOptionPane;
  *
  * @author hatice
  */
-public class AirplaneTicketTake extends Login{
+public class AirplaneTicketTake extends LoginFrame{
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Login lg=new Login();//Login frame açma komutu.
+        LoginFrame lg=new LoginFrame();//Login frame açma komutu.
         lg.setVisible(true);
         // TODO code application logic here
     }
