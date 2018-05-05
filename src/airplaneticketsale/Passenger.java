@@ -12,6 +12,7 @@ package airplaneticketsale;
 public class Passenger {
 
     private int passengerID;
+    private int identityNumber;
     private String passangerName;
     private String passengerSurname;
     private String passengerBirthdate;
@@ -20,8 +21,8 @@ public class Passenger {
     private String passengerEmail;
     private String passengerPassword;
 
-    public Passenger(int passengerID, String passangerName, String passengerSurname, String passengerBirthdate, String passengerHomeaddress, String passengerBusinessaddress, String passengerEmail, String passengerPassword) {
-        this.passengerID = passengerID;
+    public Passenger(String passangerName, String passengerSurname, String passengerBirthdate, String passengerHomeaddress, String passengerBusinessaddress, String passengerEmail, String passengerPassword) {
+        this.identityNumber= identityNumber;
         this.passangerName = passangerName;
         this.passengerSurname = passengerSurname;
         this.passengerBirthdate = passengerBirthdate;
@@ -30,13 +31,16 @@ public class Passenger {
         this.passengerEmail = passengerEmail;
         this.passengerPassword = passengerPassword;
     }
+    public int getIdentityNumber() {
+        return identityNumber;
+    }
+
+    public void setIdentityNumber(int identityNumber) {
+        this.identityNumber = identityNumber;
+    }
 
     public int getPassengerID() {
         return passengerID;
-    }
-
-    public void setPassengerID(int passengerID) {
-        this.passengerID = passengerID;
     }
 
     public String getPassangerName() {
