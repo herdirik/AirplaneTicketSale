@@ -11,16 +11,19 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-import javax.swing.JOptionPane;/**
+import javax.swing.JOptionPane;
+/**
  *
  * @author hatice
  */
-public class AirplaneTicketTake {
+public class AirplaneTicketTake extends Login{
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Login lg=new Login();//Login frame açma komutu.
+        lg.setVisible(true);
         // TODO code application logic here
     }
     
