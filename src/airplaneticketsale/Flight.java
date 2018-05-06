@@ -18,8 +18,7 @@ public class Flight {
     private String flightDate;
     private String flightTime;
     
-    public Flight(int flightID, Airport airborne, Airport destination, Airplane airplane, String flightDate, String flightTime) {
-        this.flightID = flightID;
+    public Flight(Airport airborne, Airport destination, Airplane airplane, String flightDate, String flightTime) {
         this.airborne = airborne;
         this.destination = destination;
         this.airplane = airplane;
@@ -30,9 +29,6 @@ public class Flight {
         return flightID;
     }
 
-    public void setFlightID(int flightID) {
-        this.flightID = flightID;
-    }
 
     public Airport getAirborne() {
         return airborne;

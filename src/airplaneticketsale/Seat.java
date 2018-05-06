@@ -15,7 +15,7 @@ public class Seat {
     private Airplane airplaneID;
     private boolean status;
     private int seatLocation;
-    private String seatClass;
+    private int seatClass;//Düzenleme yapılacak.
     
     public Seat(int seatID, Airplane airplaneID, boolean status, int seatLocation) {
         this.seatID = seatID;

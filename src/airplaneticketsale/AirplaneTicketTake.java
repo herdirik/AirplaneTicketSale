@@ -8,6 +8,8 @@ package airplaneticketsale;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -25,6 +27,14 @@ public class AirplaneTicketTake extends LoginFrame{
         LoginFrame lg=new LoginFrame();//Login frame açma komutu.
         lg.setVisible(true);
         // TODO code application logic here
+    }
+    //Veri tabanı bağlantısını yapan fonksiyon.
+    public static ResultSet dbconnection(String sql) throws SQLException {
+        String connection = "jdbc:hsqldb:file:db/AirportDB";
+        DBHandler db = new DBHandler(connection);
+        ResultSet rs = db.executeQuery(sql);
+        return rs;
+    
     }
     
 }

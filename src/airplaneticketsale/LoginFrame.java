@@ -152,6 +152,8 @@ public class LoginFrame extends javax.swing.JFrame {
         if(jTextField1.getText().isEmpty()){
         JOptionPane.showMessageDialog(null,"You did not enter a username");
         }
+        TicketSaleFrame frame3= new TicketSaleFrame();
+        frame3.setVisible(true);
         
 
     }//GEN-LAST:event_jButton1MouseClicked
