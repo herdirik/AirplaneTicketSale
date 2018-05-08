@@ -5,7 +5,14 @@
  */
 package airplaneticketsale;
 
+import static airplaneticketsale.AirplaneTicketTake.dbconnection;
 import java.awt.Toolkit;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,7 +24,7 @@ public class LoginFrame extends javax.swing.JFrame {
     /**
      * Creates new form login
      */
-    
+    ArrayList<Passenger> passengers = new ArrayList();
     public LoginFrame() {
         initComponents();
         setIcon();
@@ -45,6 +52,11 @@ public class LoginFrame extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LOGIN", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
 
@@ -126,11 +138,11 @@ public class LoginFrame extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
+                        .addGap(106, 106, 106)
                         .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
+                        .addGap(4, 4, 4)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,28 +158,73 @@ public class LoginFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void passengerlist(){
+        try {
+            int id;
+            String number, name, surname, address, bussiness, email, pass;
+            Date bdate;
+            ResultSet rs = AirplaneTicketTake.dbconnection("SELECT * FROM PASSENGERTBL");//
+            while (rs.next()) {
+                id = rs.getInt("PASSENGER_ID");
+                number = rs.getString("PASSENGER_IDENTITYNUMBER");
+                name = rs.getString("PASSENGER_NAME");
+                surname = rs.getString("PASSENGER_SURNAME");
+                bdate = rs.getDate("PASSENGER_BIRTHDATE");
+                address = rs.getString("PASSENGER_HOMEADDRESS");
+                bussiness = rs.getString("PASSENGER_BUSINESS");
+                email = rs.getString("PASSENGER_EMAIL");
+                pass = rs.getString("PASSENGER_PASSWORD");
+                passengers.add(new Passenger(id, number, name, surname, bdate.toString(), address, bussiness, email, pass));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    
+    
+    }
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        if(jTextField1.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null,"You did not enter a username");
+        //Username boş kalırsa hata mesajı döndürecek.
+        if (jTextField1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "You did not enter a username");
+        } else {
+
+            for (Passenger p : passengers) {
+                if (jTextField1.getText().equals(p.getPassengerEmail())) {//Kullanıcı emaili doğru mu kontrol ettik.
+                    String password = new String(jPasswordField1.getPassword());
+                    if (password.equals(p.getPassengerPassword())) {//Kullanıcı passwordü doğrumu kontrol ettik.
+                        TicketSaleFrame frame3 = new TicketSaleFrame();
+                        frame3.setVisible(true);//password ve email doğru ise TicketSaleFrame sayfası açılacak.
+                        this.setVisible(false);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "E-mail or password is not correct!", "HATA MESAJI", JOptionPane.WARNING_MESSAGE);
+                    }
+
+                }
+
+            }
+
         }
-        TicketSaleFrame frame3= new TicketSaleFrame();
-        frame3.setVisible(true);
-        
 
     }//GEN-LAST:event_jButton1MouseClicked
-
+    
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        SignUpFrame frame2 = new SignUpFrame();
+        SignUpFrame frame2 = new SignUpFrame();// Kullanıcı Sign up butonuna basınca kayıt ol sayfasına gidecek.
         frame2.setVisible(true);
+        this.setVisible(false); //Login frame i kapattık.
         
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+           passengerlist();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

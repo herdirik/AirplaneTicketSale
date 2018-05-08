@@ -11,9 +11,11 @@ package airplaneticketsale;
  */
 public class Passenger {
 
+    
+
     private int passengerID;
-    private int identityNumber;
-    private String passangerName;
+    private String identityNumber;
+    private String passengerName;
     private String passengerSurname;
     private String passengerBirthdate;
     private String passengerHomeaddress;
@@ -21,21 +23,29 @@ public class Passenger {
     private String passengerEmail;
     private String passengerPassword;
 
-    public Passenger(String passangerName, String passengerSurname, String passengerBirthdate, String passengerHomeaddress, String passengerBusinessaddress, String passengerEmail, String passengerPassword) {
-        this.identityNumber= identityNumber;
-        this.passangerName = passangerName;
-        this.passengerSurname = passengerSurname;
-        this.passengerBirthdate = passengerBirthdate;
-        this.passengerHomeaddress = passengerHomeaddress;
-        this.passengerBusinessaddress = passengerBusinessaddress;
-        this.passengerEmail = passengerEmail;
-        this.passengerPassword = passengerPassword;
+    public Passenger(int passengerID, String identityNumber, String passengerName, String passengerSurname, String passengerBirthdate, String passengerHomeaddress, String passengerBusinessaddress, String passengerEmail, String passengerPassword) {
+        // Burdakilerin hepsi setter ile yapılacak
+        setPassengerID(passengerID);
+        setIdentityNumber(identityNumber);
+        setPassengerName(passengerName);
+        setPassengerSurname(passengerSurname);
+        setPassengerBirthdate(passengerBirthdate);
+        setPassengerHomeaddress(passengerHomeaddress);
+        setPassengerBusinessaddress(passengerBusinessaddress);
+        setPassengerEmail(passengerEmail);
+        setPassengerPassword(passengerPassword);
     }
-    public int getIdentityNumber() {
+    /**
+     * @param passengerID the passengerID to set
+     */
+    public void setPassengerID(int passengerID) {
+        this.passengerID = passengerID;
+    }
+    public String getIdentityNumber() {
         return identityNumber;
     }
 
-    public void setIdentityNumber(int identityNumber) {
+    public void setIdentityNumber(String identityNumber) {
         this.identityNumber = identityNumber;
     }
 
@@ -44,11 +54,11 @@ public class Passenger {
     }
 
     public String getPassangerName() {
-        return passangerName;
+        return passengerName;
     }
 
-    public void setPassangerName(String passangerName) {
-        this.passangerName = passangerName;
+    public void setPassengerName(String passangerName) {
+        this.passengerName = passangerName;
     }
 
     public String getPassengerSurname() {
