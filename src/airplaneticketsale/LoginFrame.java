@@ -211,7 +211,7 @@ public class LoginFrame extends javax.swing.JFrame {
     
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        SignUpFrame frame2 = new SignUpFrame();// Kullanıcı Sign up butonuna basınca kayıt ol sayfasına gidecek.
+        SignUpFrame frame2 = new SignUpFrame(passengers);// Kullanıcı Sign up butonuna basınca kayıt ol sayfasına gidecek.
         frame2.setVisible(true);
         this.setVisible(false); //Login frame i kapattık.
         
