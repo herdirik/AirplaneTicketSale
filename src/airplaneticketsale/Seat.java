@@ -5,6 +5,13 @@
  */
 package airplaneticketsale;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author hatice
@@ -55,5 +62,59 @@ public class Seat {
         this.seatLocation = seatLocation;
     }
 
+    public static List<Seat> select(int flightID){
+        List<Seat> seats = new ArrayList<Seat>();
+        
+        try{
+            Flight f = Flight.select(flightID);
+            int ucNum= f.getAirplane().getAirplaneID();
+            int id,seatLocation;
+            Airplane airplaneid;
+            boolean status;
+            String connection = "jdbc:hsqldb:file:db/AirportDB";
+            DBHandler db = new DBHandler(connection);
+            String sql="SELECT * FROM SEATTBL WHERE SEAT_AIRPLANEID="+ucNum+";";
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                if(rs.getBoolean("SEAT_STATUS")){
+                    id= rs.getInt("SEAT_ID");
+                    airplaneid = Airplane.select(rs.getInt("SEAT_AIRPLANEID"));
+                    status= rs.getBoolean("SEAT_STATUS");
+                    seatLocation=rs.getInt("SEAT_LOCATION");
+                    seats.add(new Seat(id,airplaneid,status,seatLocation));
+                }
+            }
+        
+        }
+        catch (SQLException ex){
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return seats;
+    }
+    
+    public static Seat selectOne(int seatID){
+        Seat s=null;
+        try{
+            int id,seatLocation;
+            Airplane airplaneid;
+            boolean status;
+            String connection = "jdbc:hsqldb:file:db/AirportDB";
+            DBHandler db = new DBHandler(connection);
+            String sql="SELECT * FROM SEATTBL WHERE SEAT_ID="+seatID+";";
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                id= rs.getInt("SEAT_ID");
+                airplaneid = Airplane.select(rs.getInt("SEAT_AIRPLANEID"));
+                status= rs.getBoolean("SEAT_STATUS");
+                seatLocation=rs.getInt("SEAT_LOCATION");
+                s=new Seat(id,airplaneid,status,seatLocation);             
+            }
+        }
+        catch (SQLException ex){
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return s;
+    }
+    
     
 }
